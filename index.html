@@ -10,7 +10,19 @@
 </head>
 <body>
 
-    <!-- Erstes Bild (Hero) ohne Padding oben -->
+    <!-- Navigationsleiste -->
+    <nav class="site-nav">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">Kuchen.</a>
+            <div class="nav-links">
+                <a href="#about">Über das Projekt</a>
+                <a href="#tips">Tipps &amp; Tricks</a>
+                <a href="https://bibbidibabbidibuu.com/eincore" target="_blank">Kontakt</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero-Bereich mit Bild & Overlay -->
     <header class="image hero" style="--bg: url('https://bibbidibabbidibuu.github.io/kuchen/image.jpg');">
         <div class="hero-overlay"></div>
         <div class="hero-title">
@@ -20,30 +32,45 @@
     </header>
 
     <main>
-        <section class="text">
+        <!-- Text-Sektion -->
+        <section class="text" id="about">
             <div class="container">
                 <h2>Hej!</h2>
                 <p>Kuchen ist ein kleines Projekt. Es werden hier Tipps und Tricks zur Fotografie angeboten. Kuchen existiert schon 8 Jahre, ich habe es aber nie öffentlich gemacht.</p>
             </div>
         </section>
 
-        <section class="image" style="--bg: url('https://bibbidibabbidibuu.github.io/kuchen/image.jpg');"></section>
+        <!-- Parallax Bild-Trenner -->
+        <div class="image" style="--bg: url('https://bibbidibabbidibuu.github.io/kuchen/image.jpg');"></div>
 
-        <section class="text">
+        <!-- Artikel Grid Sektion -->
+        <section class="text" id="tips">
             <div class="container">
-                <h2>Über den Kuchen</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Hier stehen bald echte Praxis-Tipps zu Blende, Licht und Bildaufbau.</p>
+                <h2>Ausgewählte Artikel</h2>
+                <p>Hier findest du praxisnahe Beiträge rund um Blende, Licht und Bildaufbau.</p>
+
+                <!-- Das Artikel-Grid -->
+                <div class="article-grid">
+                    <article class="card">
+                        <h3>Offene Blende &amp; Bokeh</h3>
+                        <p>Wie du mit Festbrennweiten (z.B. 50mm f/1.8) und offener Blende stimmungsvolle Freistellungen erreichst.</p>
+                        <a href="#" class="card-link">Weiterlesen &rarr;</a>
+                    </article>
+                    <article class="card">
+                        <h3>Verfügbares Licht</h3>
+                        <p>Tipps für den bewussten Umgang mit natürlichem Licht in der Street- und Porträtfotografie.</p>
+                        <a href="#" class="card-link">Weiterlesen &rarr;</a>
+                    </article>
+                    <article class="card">
+                        <h3>Minimalismus im Bild</h3>
+                        <p>Warum weniger oft mehr ist und wie gezielte Linienführung den Blick des Betrachters lenkt.</p>
+                        <a href="#" class="card-link">Weiterlesen &rarr;</a>
+                    </article>
+                </div>
             </div>
         </section>
 
-        <section class="image" style="--bg: url('https://bibbidibabbidibuu.github.io/kuchen/image.jpg');"></section>
-
-        <section class="text">
-            <div class="container">
-                <h2>Über den Kuchen 2</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            </div>
-        </section>
+        <div class="image" style="--bg: url('https://bibbidibabbidibuu.github.io/kuchen/image.jpg');"></div>
     </main>
 
     <footer>
