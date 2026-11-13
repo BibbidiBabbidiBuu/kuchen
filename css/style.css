@@ -143,13 +143,12 @@ p {
     text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
 }
 
-/* --- Schräge Text-Sektionen --- */
+/* --- Schräge Text-Sektionen (jetzt wirklich schräg!) --- */
 .text {
-    background: #ffffff;
+    background: transparent; /* Wichtig: muss transparent sein, damit man die Schräge sieht! */
     position: relative;
-    padding: 5rem 0;
+    padding: 5.5rem 0;
     width: 100%;
-    overflow: hidden;
     scroll-margin-top: 60px;
 }
 
@@ -159,11 +158,11 @@ p {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 110%;
-    height: 120%;
+    width: 120%; /* Breit genug, damit die Ecken links/rechts nicht abreißen */
+    height: 118%; /* Ragt oben und unten schräg in die Bilder hinein! */
     background: #ffffff;
     transform: translate(-50%, -50%) rotate(-3deg);
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.12);
     z-index: 1;
 }
 
