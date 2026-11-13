@@ -2,45 +2,139 @@
 Code by bibbidibabbidibuu
 */
 
-body {
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html, body {
     margin: 0;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 0;
+    overflow-x: hidden; /* Verhindert den horizontalen Scrollbalken durch die schrägen Flächen */
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     color: #1d1d1d;
-    /*background: #c4d0dc;*/
+    background-color: #ffffff;
+    line-height: 1.7;
+    font-size: 1.05rem;
 }
 
-p, h2 {
+.container {
     position: relative;
-    z-index: 1;
-    margin: 20px 15%;
+    z-index: 2;
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
 }
 
-section { padding: 40px 0; }
+h1, h2 {
+    margin-top: 0;
+    letter-spacing: -0.02em;
+}
 
+h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+/* Parallax-Bildbereiche */
 .image {
-    height: 380px;
+    height: 420px;
+    background-image: var(--bg);
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
-    background-image: url(https://bibbidibabbidibuu.github.io/kuchen/image.jpg);
-}
-
-.text {
-    background: #fff;
     position: relative;
 }
 
-    .text::before {
-        content: "";
-        display: block;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 150%;
-        height: 125%;
-        background: #fff;
-        rotate: -3deg;
-        translate: -50% -50%;
+/* Optionaler Titel im ersten Bild */
+.image.hero {
+    height: 55vh;
+    min-height: 360px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #ffffff;
+}
+
+.image.hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35); /* Macht weiße Schrift auf Fotos gut lesbar */
+}
+
+.hero-title {
+    position: relative;
+    z-index: 2;
+    padding: 0 1.5rem;
+}
+
+.hero-title h1 {
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    margin-bottom: 0.25rem;
+}
+
+.hero-title p {
+    font-size: 1.15rem;
+    opacity: 0.9;
+    margin: 0;
+}
+
+/* Schräge Text-Sektionen */
+.text {
+    background: #ffffff;
+    position: relative;
+    padding: 4.5rem 0;
+}
+
+.text::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120vw;
+    height: 118%;
+    background: #ffffff;
+    transform: translate(-50%, -50%) rotate(-3deg);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.08); /* Dezente Tiefe über den Fotos */
+    z-index: 1;
+}
+
+/* Footer */
+footer {
+    position: relative;
+    z-index: 2;
+    background: #ffffff;
+    padding: 2rem 0 3rem;
+    font-size: 0.9rem;
+    color: #666666;
+    border-top: 1px solid #eeeeee;
+}
+
+footer a {
+    color: #1d1d1d;
+    text-decoration: none;
+    border-bottom: 1px solid #1d1d1d;
+}
+
+footer a:hover {
+    opacity: 0.7;
+}
+
+/* Mobile Fix für iOS & schmale Displays */
+@media (max-width: 768px) {
+    .image {
+        background-attachment: scroll;
+        height: 280px;
     }
 
-    
+    .text {
+        padding: 3rem 0;
+    }
+}
