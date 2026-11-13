@@ -49,22 +49,22 @@
                 <h2>Ausgewählte Artikel</h2>
                 <p>Hier findest du praxisnahe Beiträge rund um Blende, Licht und Bildaufbau.</p>
 
-                <!-- Das Artikel-Grid -->
+                <!-- Das Artikel-Grid (mit Data-Attributen für den Modal-Inhalt) -->
                 <div class="article-grid">
                     <article class="card">
                         <h3>Offene Blende &amp; Bokeh</h3>
                         <p>Wie du mit Festbrennweiten (z.B. 50mm f/1.8) und offener Blende stimmungsvolle Freistellungen erreichst.</p>
-                        <a href="#" class="card-link">Weiterlesen &rarr;</a>
+                        <a href="#" class="card-link open-modal" data-title="Offene Blende &amp; Bokeh" data-text="Wenn du mit einer offenen Blende (wie f/1.8 oder f/1.4) fotografierst, erreichst du eine sehr geringe Schärfentiefe. Das führt zu einem weichen, verschwommenen Hintergrund (dem sogenannten Bokeh), wodurch dein Hauptmotiv perfekt freigestellt wird. Besonders bei Porträts ist das ein unverzichtbares Stilmittel. Achte jedoch darauf, dass der Fokus exakt auf dem Auge sitzt, da der Schärfebereich bei f/1.8 oft nur wenige Millimeter beträgt.">Weiterlesen &rarr;</a>
                     </article>
                     <article class="card">
                         <h3>Verfügbares Licht</h3>
                         <p>Tipps für den bewussten Umgang mit natürlichem Licht in der Street- und Porträtfotografie.</p>
-                        <a href="#" class="card-link">Weiterlesen &rarr;</a>
+                        <a href="#" class="card-link open-modal" data-title="Verfügbares Licht (Available Light)" data-text="Nutze vorhandenes Licht gezielt aus, statt sofort zum Blitz zu greifen. Große Fensterfronten, Hauseinfahrten oder die goldene Stunde kurz vor Sonnenuntergang bieten wunderschönes, weiches Licht. Platziere dein Model im 90-Grad-Winkel zum Fenster, um eine plastische Ausleuchtung mit sanften Schatten zu erzielen.">Weiterlesen &rarr;</a>
                     </article>
                     <article class="card">
                         <h3>Minimalismus im Bild</h3>
                         <p>Warum weniger oft mehr ist und wie gezielte Linienführung den Blick des Betrachters lenkt.</p>
-                        <a href="#" class="card-link">Weiterlesen &rarr;</a>
+                        <a href="#" class="card-link open-modal" data-title="Minimalismus im Bild" data-text="Reduziere dein Bild auf das Wesentliche. Entferne störende Elemente aus dem Bildrand und suche nach klaren Linien, geometrischen Mustern oder viel negativem Raum (z.B. ein einsames Subjekt vor einer großen Wand oder einem ruhigen Himmel). Das gibt dem Auge des Betrachters Halt und sorgt für eine extrem ruhige, ästhetische Bildwirkung.">Weiterlesen &rarr;</a>
                     </article>
                 </div>
             </div>
@@ -75,9 +75,62 @@
 
     <footer>
         <div class="container">
-            <p>Copyright by <a href="https://bibbidibabbidibuu.com/eincore">bibbidibabbidibuu</a></p>
+            <p>Copyright by <a href="https://bibbidibabbidibuu.7ph.me">bibbidibabbidibuu</a></p>
         </div>
     </footer>
 
+    <!-- Das Modal-Fenster (standardmäßig versteckt) -->
+    <div id="articleModal" class="modal-backdrop">
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Schließen">&times;</button>
+            <h3 id="modalTitle">Titel</h3>
+            <div class="modal-divider"></div>
+            <p id="modalText">Inhalt...</p>
+        </div>
+    </div>
+
+    <!-- JavaScript für die Modal-Funktion -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('articleModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalText = document.getElementById('modalText');
+            const closeBtn = document.querySelector('.modal-close');
+            const triggerLinks = document.querySelectorAll('.open-modal');
+
+            // Öffnen beim Klick auf "Weiterlesen"
+            triggerLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    modalTitle.innerHTML = link.getAttribute('data-title');
+                    modalText.textContent = link.getAttribute('data-text');
+                    modal.classList.add('is-open');
+                    document.body.style.overflow = 'hidden'; // Verhindert Scrollen im Hintergrund
+                });
+            });
+
+            // Schließen-Funktionen
+            const closeModal = () => {
+                modal.classList.remove('is-open');
+                document.body.style.overflow = '';
+            };
+
+            closeBtn.addEventListener('click', closeModal);
+
+            // Schließen bei Klick außerhalb des Inhalts
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+
+            // Schließen per ESC-Taste
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal.classList.contains('is-open')) {
+                    closeModal();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
