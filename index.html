@@ -17,7 +17,7 @@
             <div class="nav-links">
                 <a href="#about">Über das Projekt</a>
                 <a href="#tips">Tipps &amp; Tricks</a>
-                <a href="https://bibbidibabbidibuu.com/eincore" target="_blank">Kontakt</a>
+                <a href="#" class="open-contact-modal">Kontakt</a>
             </div>
         </div>
     </nav>
@@ -49,21 +49,29 @@
                 <h2>Ausgewählte Artikel</h2>
                 <p>Hier findest du praxisnahe Beiträge rund um Blende, Licht und Bildaufbau.</p>
 
-                <!-- Das Artikel-Grid (mit Data-Attributen für den Modal-Inhalt) -->
+                <!-- Das Artikel-Grid -->
                 <div class="article-grid">
                     <article class="card">
-                        <h3>Offene Blende &amp; Bokeh</h3>
-                        <p>Wie du mit Festbrennweiten (z.B. 50mm f/1.8) und offener Blende stimmungsvolle Freistellungen erreichst.</p>
+                        <div>
+                            <h3>Offene Blende &amp; Bokeh</h3>
+                            <p>Wie du mit Festbrennweiten (z.B. 50mm f/1.8) und offener Blende stimmungsvolle Freistellungen erreichst.</p>
+                        </div>
                         <a href="#" class="card-link open-modal" data-title="Offene Blende &amp; Bokeh" data-text="Wenn du mit einer offenen Blende (wie f/1.8 oder f/1.4) fotografierst, erreichst du eine sehr geringe Schärfentiefe. Das führt zu einem weichen, verschwommenen Hintergrund (dem sogenannten Bokeh), wodurch dein Hauptmotiv perfekt freigestellt wird. Besonders bei Porträts ist das ein unverzichtbares Stilmittel. Achte jedoch darauf, dass der Fokus exakt auf dem Auge sitzt, da der Schärfebereich bei f/1.8 oft nur wenige Millimeter beträgt.">Weiterlesen &rarr;</a>
                     </article>
+
                     <article class="card">
-                        <h3>Verfügbares Licht</h3>
-                        <p>Tipps für den bewussten Umgang mit natürlichem Licht in der Street- und Porträtfotografie.</p>
+                        <div>
+                            <h3>Verfügbares Licht</h3>
+                            <p>Tipps für den bewussten Umgang mit natürlichem Licht in der Street- und Porträtfotografie.</p>
+                        </div>
                         <a href="#" class="card-link open-modal" data-title="Verfügbares Licht (Available Light)" data-text="Nutze vorhandenes Licht gezielt aus, statt sofort zum Blitz zu greifen. Große Fensterfronten, Hauseinfahrten oder die goldene Stunde kurz vor Sonnenuntergang bieten wunderschönes, weiches Licht. Platziere dein Model im 90-Grad-Winkel zum Fenster, um eine plastische Ausleuchtung mit sanften Schatten zu erzielen.">Weiterlesen &rarr;</a>
                     </article>
+
                     <article class="card">
-                        <h3>Minimalismus im Bild</h3>
-                        <p>Warum weniger oft mehr ist und wie gezielte Linienführung den Blick des Betrachters lenkt.</p>
+                        <div>
+                            <h3>Minimalismus im Bild</h3>
+                            <p>Warum weniger oft mehr ist und wie gezielte Linienführung den Blick des Betrachters lenkt.</p>
+                        </div>
                         <a href="#" class="card-link open-modal" data-title="Minimalismus im Bild" data-text="Reduziere dein Bild auf das Wesentliche. Entferne störende Elemente aus dem Bildrand und suche nach klaren Linien, geometrischen Mustern oder viel negativem Raum (z.B. ein einsames Subjekt vor einer großen Wand oder einem ruhigen Himmel). Das gibt dem Auge des Betrachters Halt und sorgt für eine extrem ruhige, ästhetische Bildwirkung.">Weiterlesen &rarr;</a>
                     </article>
                 </div>
@@ -79,55 +87,103 @@
         </div>
     </footer>
 
-    <!-- Das Modal-Fenster (standardmäßig versteckt) -->
+    <!-- 1. Artikel-Modal -->
     <div id="articleModal" class="modal-backdrop">
         <div class="modal-content">
-            <button class="modal-close" aria-label="Schließen">&times;</button>
+            <button class="modal-close article-close" aria-label="Schließen">&times;</button>
             <h3 id="modalTitle">Titel</h3>
             <div class="modal-divider"></div>
             <p id="modalText">Inhalt...</p>
         </div>
     </div>
 
-    <!-- JavaScript für die Modal-Funktion -->
+    <!-- 2. Kontakt-Modal -->
+    <div id="contactModal" class="modal-backdrop">
+        <div class="modal-content">
+            <button class="modal-close contact-close" aria-label="Schließen">&times;</button>
+            <h3>Kontakt aufnehmen</h3>
+            <div class="modal-divider"></div>
+            <p class="modal-subtitle">Schreib mir eine Nachricht – ich melde mich zeitnah bei dir.</p>
+            
+            <form class="contact-form" action="https://formspree.io/f/DEINE_FORM_ID" method="POST">
+                <div class="form-group">
+                    <label for="name">Dein Name</label>
+                    <input type="text" id="name" name="name" required placeholder="Max Mustermann">
+                </div>
+                <div class="form-group">
+                    <label for="email">Deine E-Mail</label>
+                    <input type="email" id="email" name="_replyto" required placeholder="max@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="message">Nachricht</label>
+                    <textarea id="message" name="message" rows="4" required placeholder="Was möchtest du loswerden?"></textarea>
+                </div>
+                <button type="submit" class="form-submit-btn">Nachricht senden</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript für beide Modals -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const modal = document.getElementById('articleModal');
+            // --- Artikel-Modal ---
+            const articleModal = document.getElementById('articleModal');
             const modalTitle = document.getElementById('modalTitle');
             const modalText = document.getElementById('modalText');
-            const closeBtn = document.querySelector('.modal-close');
+            const articleCloseBtn = document.querySelector('.article-close');
             const triggerLinks = document.querySelectorAll('.open-modal');
 
-            // Öffnen beim Klick auf "Weiterlesen"
             triggerLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
                     modalTitle.innerHTML = link.getAttribute('data-title');
                     modalText.textContent = link.getAttribute('data-text');
-                    modal.classList.add('is-open');
-                    document.body.style.overflow = 'hidden'; // Verhindert Scrollen im Hintergrund
+                    articleModal.classList.add('is-open');
+                    document.body.style.overflow = 'hidden';
                 });
             });
 
-            // Schließen-Funktionen
-            const closeModal = () => {
-                modal.classList.remove('is-open');
+            const closeArticleModal = () => {
+                articleModal.classList.remove('is-open');
                 document.body.style.overflow = '';
             };
 
-            closeBtn.addEventListener('click', closeModal);
-
-            // Schließen bei Klick außerhalb des Inhalts
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    closeModal();
-                }
+            articleCloseBtn.addEventListener('click', closeArticleModal);
+            articleModal.addEventListener('click', (e) => {
+                if (e.target === articleModal) closeArticleModal();
             });
 
-            // Schließen per ESC-Taste
+            // --- Kontakt-Modal ---
+            const contactModal = document.getElementById('contactModal');
+            const contactTrigger = document.querySelector('.open-contact-modal');
+            const contactCloseBtn = document.querySelector('.contact-close');
+
+            if (contactTrigger) {
+                contactTrigger.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    contactModal.classList.add('is-open');
+                    document.body.style.overflow = 'hidden';
+                });
+            }
+
+            const closeContactModal = () => {
+                contactModal.classList.remove('is-open');
+                document.body.style.overflow = '';
+            };
+
+            if (contactCloseBtn) {
+                contactCloseBtn.addEventListener('click', closeContactModal);
+            }
+
+            contactModal.addEventListener('click', (e) => {
+                if (e.target === contactModal) closeContactModal();
+            });
+
+            // --- ESC-Taste schließt jedes offene Modal ---
             document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && modal.classList.contains('is-open')) {
-                    closeModal();
+                if (e.key === 'Escape') {
+                    if (articleModal.classList.contains('is-open')) closeArticleModal();
+                    if (contactModal.classList.contains('is-open')) closeContactModal();
                 }
             });
         });
