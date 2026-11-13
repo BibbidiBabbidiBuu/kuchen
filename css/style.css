@@ -1,5 +1,5 @@
 /*
-Code by bibbidibabbidibuu
+Code by bibbidibabbidibuu – optimiert mit Navigation & Grid
 */
 
 *, *::before, *::after {
@@ -9,14 +9,63 @@ Code by bibbidibabbidibuu
 html, body {
     margin: 0;
     padding: 0;
-    overflow-x: hidden; /* Verhindert den horizontalen Scrollbalken durch die schrägen Flächen */
+    width: 100%;
+    overflow-x: hidden; /* Verhindert jegliches seitliches Scrollen */
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     color: #1d1d1d;
     background-color: #ffffff;
     line-height: 1.7;
     font-size: 1.05rem;
+    scroll-behavior: smooth;
 }
 
+/* Navigationsleiste */
+.site-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    padding: 1rem 0;
+}
+
+.nav-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #1d1d1d;
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    color: #555555;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.15s;
+}
+
+.nav-links a:hover {
+    color: #1d1d1d;
+}
+
+/* Container für Fließtext */
 .container {
     position: relative;
     z-index: 2;
@@ -25,7 +74,7 @@ html, body {
     padding: 0 1.5rem;
 }
 
-h1, h2 {
+h1, h2, h3 {
     margin-top: 0;
     letter-spacing: -0.02em;
 }
@@ -48,24 +97,26 @@ p {
     background-attachment: fixed;
     background-position: center;
     position: relative;
+    width: 100%;
 }
 
-/* Optionaler Titel im ersten Bild */
+/* Hero-Bereich */
 .image.hero {
-    height: 55vh;
-    min-height: 360px;
+    height: 65vh;
+    min-height: 400px;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     color: #ffffff;
+    margin-top: 0; /* Läuft direkt unter die transparente Nav */
 }
 
-.image.hero::after {
-    content: "";
+.hero-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.35); /* Macht weiße Schrift auf Fotos gut lesbar */
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 1;
 }
 
 .hero-title {
@@ -75,21 +126,26 @@ p {
 }
 
 .hero-title h1 {
-    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-size: clamp(2.5rem, 6vw, 4rem);
     margin-bottom: 0.25rem;
+    font-weight: 700;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .hero-title p {
-    font-size: 1.15rem;
-    opacity: 0.9;
+    font-size: 1.2rem;
+    opacity: 0.95;
     margin: 0;
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
 }
 
 /* Schräge Text-Sektionen */
 .text {
     background: #ffffff;
     position: relative;
-    padding: 4.5rem 0;
+    padding: 5rem 0;
+    width: 100%;
+    overflow: hidden;
 }
 
 .text::before {
@@ -98,12 +154,59 @@ p {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 120vw;
-    height: 118%;
+    width: 110%;
+    height: 120%;
     background: #ffffff;
     transform: translate(-50%, -50%) rotate(-3deg);
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.08); /* Dezente Tiefe über den Fotos */
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.08);
     z-index: 1;
+}
+
+/* Artikel-Grid Layout */
+.article-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.card {
+    background: #fafafa;
+    border: 1px solid #eaeaea;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.card:hover {
+    border-color: #1d1d1d;
+    transform: translateY(-2px);
+}
+
+.card h3 {
+    font-size: 1.15rem;
+    margin-bottom: 0.75rem;
+}
+
+.card p {
+    font-size: 0.95rem;
+    color: #555555;
+    margin-bottom: 1.5rem;
+}
+
+.card-link {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #1d1d1d;
+    text-decoration: none;
+}
+
+.card-link:hover {
+    text-decoration: underline;
 }
 
 /* Footer */
@@ -127,14 +230,18 @@ footer a:hover {
     opacity: 0.7;
 }
 
-/* Mobile Fix für iOS & schmale Displays */
+/* Mobile Anpassungen */
 @media (max-width: 768px) {
     .image {
-        background-attachment: scroll;
-        height: 280px;
+        background-attachment: scroll; /* Fix für ruckelnde iOS-Safari Hintergründe */
+        height: 300px;
+    }
+
+    .nav-links {
+        display: none; /* Kann bei Bedarf per Mobile-Menu erweitert werden */
     }
 
     .text {
-        padding: 3rem 0;
+        padding: 3.5rem 0;
     }
 }
